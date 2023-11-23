@@ -1,0 +1,80 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+// Инициализация векторов
+void initializeVectors() {
+    std::vector<std::string> names;
+    std::vector<int> grades;
+
+    std::cout << "Выберите способ инициализации векторов:" << std::endl;
+    std::cout << "1. Демонстрационный анализ на дефолтных входных значениях" << std::endl;
+    std::cout << "2. Анализ на случайных входных значениях" << std::endl;
+    std::cout << "3. Анализ на входных значениях от пользователя" << std::endl;
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 1) {
+        // Демонстрационный анализ на дефолтных входных значениях
+        names = {"Анна", "Иван", "Мария", "Алексей", "Елена", "Сергей", "Ольга", "Дмитрий", "Наталья", "Павел"};
+        grades = {85, 92, 78, 65, 95, 88, 70, 75, 89, 80};  
+    } else if (choice == 2) {
+        // Анализ на случайных входных значениях
+        int sampleSize;
+        std::cout << "Введите желаемый размер выборки: ";
+        std::cin >> sampleSize;
+
+        names.resize(sampleSize);
+        grades.resize(sampleSize);
+
+        for (int i = 0; i < sampleSize; ++i) {
+            names[i] = "Студент_" + std::to_string(i + 1);
+            grades[i] = rand() % 101; // случайное число от 0 до 100
+        }
+    } else if (choice == 3) {
+        // Анализ на входных значениях от пользователя
+        int sampleSize;
+        std::cout << "Введите количество студентов: ";
+        std::cin >> sampleSize;
+
+        names.resize(sampleSize);
+        grades.resize(sampleSize);
+
+        for (int i = 0; i < sampleSize; ++i) {
+            std::cout << "Введите имя студента " << i + 1 << ": ";
+            std::cin >> names[i];
+
+            std::cout << "Введите оценку для студента " << names[i] << ": ";
+            std::cin >> grades[i];
+        }
+    } else {
+        std::cout << "Некорректный выбор. Пожалуйста, выберите 1, 2 или 3." << std::endl;
+        return;
+    }
+
+    // Вывод результатов
+    std::cout << "\nИнициализированные векторы:" << std::endl;
+    std::cout << "Имена студентов:";
+    for (const auto& name : names) {
+        std::cout << " " << name;
+    }
+    std::cout << std::endl;
+
+    std::cout << "Оценки студентов:";
+    for (int grade : grades) {
+        std::cout << " " << grade;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    // Инициализация генератора случайных чисел
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // Вызов функции для инициализации векторов
+    initializeVectors();
+
+    return 0;
+}
